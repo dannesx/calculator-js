@@ -7,18 +7,15 @@ let equal = document.querySelector('#equal')
 let clear = document.querySelector('#clear')
 let erase = document.querySelector('#erase')
 
-buttons.forEach(btn => {
-	btn.addEventListener('click', () => {
-		if (equalPressed) {
-			input.value = ''
-			equalPressed = false
-		}
+function clearDisplay() {
+	input.value = ''
+}
 
-		input.value += btn.value
-	})
-})
+function eraseDisplay() {
+	input.value = input.value.substr(0, input.value.length - 1)
+}
 
-equal.addEventListener('click', () => {
+function calculate() {
 	equalPressed = true
 	let inputValue = input.value
 
@@ -32,14 +29,21 @@ equal.addEventListener('click', () => {
 		}
 	} catch (err) {
 		alert('Invalid Input')
-		input.value = ''
+		clearDisplay()
 	}
+}
+
+buttons.forEach(btn => {
+	btn.addEventListener('click', () => {
+		if (equalPressed) {
+			clearDisplay()
+			equalPressed = false
+		}
+
+		input.value += btn.value
+	})
 })
 
-clear.addEventListener('click', () => {
-	input.value = ''
-})
-
-erase.addEventListener('click', () => {
-	input.value = input.value.substr(0, input.value.length - 1)
-})
+equal.addEventListener('click', calculate)
+clear.addEventListener('click', clearDisplay)
+erase.addEventListener('click', eraseDisplay)
