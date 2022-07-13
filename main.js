@@ -15,6 +15,10 @@ function eraseDisplay() {
 	input.value = input.value.substr(0, input.value.length - 1)
 }
 
+function insertDisplay(key) {
+	input.value += key
+}
+
 function calculate() {
 	equalPressed = true
 	let inputValue = input.value
@@ -40,7 +44,7 @@ buttons.forEach(btn => {
 			equalPressed = false
 		}
 
-		input.value += btn.value
+		insertDisplay(btn.value)
 	})
 })
 
